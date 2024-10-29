@@ -1,6 +1,7 @@
-const express = require(express);
-const router = express.Router();
+const express = require('express');
+const sentenceRoute = express.Router();
 
+// sentenceRoute.get(('/:type'), );
+// sentenceRoute.get(('/:id'), );
 
-
-module.exports = sentenceRouter;
+module.exports = sentenceRoute;

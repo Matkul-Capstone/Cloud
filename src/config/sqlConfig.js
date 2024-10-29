@@ -1,5 +1,5 @@
 const mysql = require('mysql2');
-require(dotnev).config();
+require('dotnev').config();
 
 const db = mysql.createPool({
     host: process.env.HOST,
