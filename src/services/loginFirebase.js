@@ -6,9 +6,12 @@ async function loginUserFirebase(email, password){
         const firebaseLoginResponse = await signInWithEmailAndPassword(auth, email, password);
 
         return firebaseLoginResponse.user.uid;
-    } catch(error) {
+    } catch (error) {
         console.log(error);
-        return 'fail';
+        return {
+            'status': 'fail',
+            'message': error.message
+        };
     }
 }
 

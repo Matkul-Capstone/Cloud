@@ -8,7 +8,10 @@ async function registerUserFirebase(email, password) {
         return firebaseRegisterResponse.user.uid;
     } catch (error) {
         console.log(error);
-        return 'fail';
+        return {
+            'status': 'fail',
+            'message': error.message
+        };
     }
 };
 
