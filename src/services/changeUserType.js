@@ -6,7 +6,7 @@ async function changeUserTypeSQL(uid, userType){
         await db.query(sqlQuery, [userType, uid]);
         return {
             'userType': userType
-        }
+        };
     } catch (error) {
         console.log(error);
         return {
@@ -14,6 +14,6 @@ async function changeUserTypeSQL(uid, userType){
             'message': error.message
         };
     }
-}
+};
 
 module.exports = changeUserTypeSQL;

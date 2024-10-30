@@ -12,6 +12,6 @@ async function resetPassword(email){
             'message': error.message
         };
     }
-}
+};
 
 module.exports = resetPassword;

@@ -12,6 +12,6 @@ async function registerUserSQL(uid, email, username){
             'message': error.message
         };
     }
-}
+};
 
 module.exports = registerUserSQL;

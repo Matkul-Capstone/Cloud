@@ -14,6 +14,6 @@ async function changeUsernameSQL(uid, newUsername){
             'message': error.message
         };
     }
-}
+};
 
 module.exports = changeUsernameSQL;

@@ -1,9 +1,9 @@
 const db = require('../config/sqlConfig');
 
-async function getUserSQL(uid){
+async function getLogsSQL(uid){
     try {
-        const sqlQuery = 'SELECT * FROM user WHERE user_id = ?'
-        const [results] = await db.query(sqlQuery, [uid]);
+        const sqlQuery = 'SELECT * FROM complition_logs WHERE user_id = ?';
+        const [results] = db.query(sqlQuery, [uid]);
         return results[0];
     } catch (error) {
         console.log(error);
@@ -12,6 +12,6 @@ async function getUserSQL(uid){
             'message': error.message
         };
     }
-};
+}
 
-module.exports = getUserSQL;
+module.exports = getLogsSQL;

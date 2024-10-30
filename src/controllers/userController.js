@@ -32,7 +32,7 @@ exports.getUser = asyncHandler(async (req, res) => {
             'message': error.message,
         });
     }
-})
+});
 
 exports.registerUser = asyncHandler(async (req, res) => {
     try {
@@ -62,7 +62,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
             'message': error.message,
         });
     }
-})
+});
 
 exports.loginUser = asyncHandler(async (req, res) => {
     try {
@@ -86,7 +86,7 @@ exports.loginUser = asyncHandler(async (req, res) => {
             'message': error.message,
         });
     }
-})
+});
 
 exports.resetPassword = asyncHandler(async (req, res) => {
     try {
@@ -107,7 +107,7 @@ exports.resetPassword = asyncHandler(async (req, res) => {
             'message': error.message,
         });
     }
-})
+});
 
 exports.changeUsername = asyncHandler(async (req, res) => {
     try {
@@ -132,11 +132,11 @@ exports.changeUsername = asyncHandler(async (req, res) => {
             'message': error.message,
         });
     }
-})
+});
 
 exports.changeUserType = asyncHandler(async (req, res) => {
     try {
-        const changeUserTypeResponse = await changeUserType(req.params.uid, req.body.userType);
+        const changeUserTypeResponse = await changeUserTypeSQL(req.params.uid, req.body.userType);
 
         if (changeUserTypeResponse.status === 'fail'){
             res.status(400).json(changeUserTypeResponse);
@@ -147,7 +147,7 @@ exports.changeUserType = asyncHandler(async (req, res) => {
             'message': 'berhasil merubah username',
             'data': {
                 'uid': req.params.uid,
-                'newUsername': changeUserTypeResponse.userType
+                'userType': changeUserTypeResponse.userType
             }
         });
     } catch (error) {
@@ -157,4 +157,4 @@ exports.changeUserType = asyncHandler(async (req, res) => {
             'message': error.message,
         });
     }
-})
+});

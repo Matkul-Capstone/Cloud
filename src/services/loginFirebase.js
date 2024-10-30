@@ -12,6 +12,6 @@ async function loginUserFirebase(email, password){
             'message': error.message
         };
     }
-}
+};
 
 module.exports = loginUserFirebase;
