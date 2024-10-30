@@ -4,8 +4,10 @@ const { createUserWithEmailAndPassword } = require('firebase/auth');
 async function registerUserFirebase(email, password) {
     try {
         const firebaseRegisterResponse = await createUserWithEmailAndPassword(auth, email, password);
-
-        return firebaseRegisterResponse.user.uid;
+        return {
+            'uid': firebaseRegisterResponse.user.uid,
+            'email': firebaseRegisterResponse.user.email
+        };
     } catch (error) {
         console.log(error);
         return {
