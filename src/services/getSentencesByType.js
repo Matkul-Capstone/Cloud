@@ -1,9 +1,9 @@
 const db = require('../config/sqlConfig');
 
-async function getLogsSQL(uid){
+async function getSentencesByTypeSQL(sentence_type){
     try {
-        const sqlQuery = 'SELECT * FROM complition_logs WHERE user_id = ?';
-        const [results] = db.query(sqlQuery, [uid]);
+        const sqlQuery = 'SELECT * FROM sentences WHERE sentence_type = ?';
+        const [results] = db.query(sqlQuery, [sentence_type]);
         return results;
     } catch (error) {
         console.log(error);
@@ -14,4 +14,4 @@ async function getLogsSQL(uid){
     }
 }
 
-module.exports = getLogsSQL;
+module.exports = getSentencesByTypeSQL;
