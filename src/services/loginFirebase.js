@@ -6,11 +6,11 @@ async function loginUserFirebase(email, password){
         const firebaseLoginResponse = await signInWithEmailAndPassword(auth, email, password);
         return firebaseLoginResponse.user.uid;
     } catch (error) {
-        console.log(error);
-        return {
-            'status': 'fail',
-            'message': error.message
-        };
+        if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-password' || error.code === 'auth/invalid-credential' || error.code === 'auth/invalid-email') {
+            error.message = 'Incorrect email or password. Make sure your account is already registered.';
+            error.statusCode = 400;
+        }
+        throw error;
     }
 };
 

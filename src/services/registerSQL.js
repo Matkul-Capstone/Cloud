@@ -6,11 +6,7 @@ async function registerUserSQL(uid, email, username){
         await db.query(sqlQuery, [uid, username, email]);
         return 'success';
     } catch (error) {
-        console.log(error);
-        return {
-            'status': 'fail',
-            'message': error.message
-        };
+        throw error;
     }
 };
 

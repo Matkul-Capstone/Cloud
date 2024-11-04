@@ -9,11 +9,11 @@ async function registerUserFirebase(email, password) {
             'email': firebaseRegisterResponse.user.email
         };
     } catch (error) {
-        console.log(error);
-        return {
-            'status': 'fail',
-            'message': error.message
-        };
+        if (error.code === 'auth/invalid-password' || error.code === 'auth/invalid-credential' || error.code === 'auth/invalid-email') {
+            error.message = 'Incorrect email or password. Make sure your account is already registered.';
+            error.statusCode = 400;
+        }
+        throw error;
     }
 };
 

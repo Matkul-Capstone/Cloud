@@ -3,16 +3,23 @@ const db = require('../config/sqlConfig');
 async function changeUsernameSQL(uid, newUsername){
     try {
         const sqlQuery = 'UPDATE user SET username = ? WHERE user_id = ?'
-        await db.query(sqlQuery, [newUsername, uid]);
+        const result = await db.query(sqlQuery, [newUsername, uid]);
+
+        if (result[0].affectedRows === 0){
+            const error = new Error('User not found.');
+            error.statusCode = 404;
+            throw error;
+        }
+
         return {
             'newUsername': newUsername
         };
     } catch (error) {
-        console.log(error);
-        return {
-            'status': 'fail',
-            'message': error.message
-        };
+        if (!error.statusCode && !error.message) {
+            error.statusCode = 400;
+            error.message = 'Failed to change username'
+        }
+        throw error;
     }
 };
 

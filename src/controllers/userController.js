@@ -7,17 +7,14 @@ const resetPasswordUser = require('../services/resetPassword');
 const changeUsernameSQL = require('../services/changeUsername');
 const changeUserTypeSQL = require('../services/changeUserType');
 
-exports.getUser = asyncHandler(async (req, res) => {
+exports.getUser = asyncHandler(async (req, res, next) => {
     try {
         const getUserResponse = await getUserSQL(req.params.uid);
 
-        if(getUserResponse.status === 'fail'){
-            res.status(400).json(getUserResponse);
-        }
-
         res.status(200).json({
-            'status': 'success',
-            'message': 'berhasil get user',
+            'success': true,
+            'status': 200,
+            'message': 'Successfully get user.',
             'data': {
                 'user_id': getUserResponse.user_id,
                 'username': getUserResponse.username,
@@ -26,135 +23,92 @@ exports.getUser = asyncHandler(async (req, res) => {
             }
         });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            'status': 'fail',
-            'message': error.message,
-        });
+        next(error);
     }
 });
 
-exports.registerUser = asyncHandler(async (req, res) => {
+exports.registerUser = asyncHandler(async (req, res, next) => {
     try {
         const registerFirebaseResponse = await registerUserFirebase(req.body.email, req.body.password);
 
-        if(registerFirebaseResponse.status === 'fail'){
-            res.status(400).json(registerFirebaseResponse);
-        }
-
         const registerSQLResponse = await registerUserSQL(registerFirebaseResponse.uid, registerFirebaseResponse.email, req.body.username);
 
-        if(registerSQLResponse.status === 'fail'){
-            res.status(400).json(registerSQLResponse);
-        }
-
         res.status(200).json({
-            'status': 'success',
-            'message': 'register berhasil',
+            'success': true,
+            'status': 200,
+            'message': 'Successfully registered new user.',
             'data': {
                 'uid': registerFirebaseResponse.uid
             }
         });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            'status': 'fail',
-            'message': error.message,
-        });
+        next(error);
     }
 });
 
-exports.loginUser = asyncHandler(async (req, res) => {
+exports.loginUser = asyncHandler(async (req, res, next) => {
     try {
         const loginFirebase = await loginUserFirebase(req.body.email, req.body.password);
 
-        if(loginFirebase.status === 'fail'){
-            res.status(400).json(loginFirebase);
-        }
-
         res.status(200).json({
-            'status': 'success',
-            'message': 'login berhasil',
+            'success': true,
+            'status': 200,
+            'message': 'Successfully login.',
             'data': {
                 'uid': loginFirebase
             }
         });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            'status': 'fail',
-            'message': error.message,
-        });
+        next(error);
     }
 });
 
-exports.resetPassword = asyncHandler(async (req, res) => {
+exports.resetPassword = asyncHandler(async (req, res, next) => {
     try {
         const resetPasswordResponse = await resetPasswordUser(req.body.email);
 
-        if(resetPasswordResponse.status === 'fail'){
-            res.status(400).json(resetPasswordResponse);
-        }
-
         res.status(200).json({
-            'status': 'success',
-            'message': 'silahkan cek email anda'
+            'success': true,
+            'status': 200,
+            'message': 'Please check your email to reset your password.'
         });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            'status': 'fail',
-            'message': error.message,
-        });
+        next(error);
     }
 });
 
-exports.changeUsername = asyncHandler(async (req, res) => {
+exports.changeUsername = asyncHandler(async (req, res, next) => {
     try {
         const changeUsernameResponse = changeUsernameSQL(req.params.uid, req.body.newUsername);
 
-        if (changeUsernameResponse.status === 'fail'){
-            res.status(400).json(changeUsernameResponse);
-        }
-
         res.status(200).json({
-            'status': 'success',
-            'message': 'berhasil merubah username',
+            'success': true,
+            'status': 200,
+            'message': 'Successfully changed username.',
             'data': {
                 'uid': req.params.uid,
                 'newUsername': changeUsernameResponse.newUsername
             }
         });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            'status': 'fail',
-            'message': error.message,
-        });
+        next(error);
     }
 });
 
-exports.changeUserType = asyncHandler(async (req, res) => {
+exports.changeUserType = asyncHandler(async (req, res, next) => {
     try {
         const changeUserTypeResponse = await changeUserTypeSQL(req.params.uid, req.body.userType);
 
-        if (changeUserTypeResponse.status === 'fail'){
-            res.status(400).json(changeUserTypeResponse);
-        }
-
         res.status(200).json({
-            'status': 'success',
-            'message': 'berhasil merubah username',
+            'success': true,
+            'status': 200,
+            'message': 'Successfully changed user type.',
             'data': {
                 'uid': req.params.uid,
-                'userType': changeUserTypeResponse.userType
+                // 'userType': changeUserTypeResponse.userType
             }
         });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            'status': 'fail',
-            'message': error.message,
-        });
+        next(error);
     }
 });

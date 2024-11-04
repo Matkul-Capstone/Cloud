@@ -6,11 +6,9 @@ async function resetPassword(email){
         await sendPasswordResetEmail(auth, email);
         return 'untuk reset password silahkan cek email';
     } catch (error) {
-        console.log(error);
-        return {
-            'status': 'fail',
-            'message': error.message
-        };
+        error.statusCode = 400;
+        error.message = 'Failed to reset password';
+        throw error;
     }
 };
 
