@@ -2,45 +2,31 @@ const asyncHandler = require('express-async-handler');
 const postLogsSQL = require('../services/postLogs');
 const getLogsSQL = require('../services/getLogs');
 
-exports.postLogs = asyncHandler(async (req, res) => {
+exports.postLogs = asyncHandler(async (req, res, next) => {
     try {
-        const postLogsResponse = await postLogsSQL(req.params.uid, req.params.sid, req.body.completed);
-
-        if (postLogsResponse.status === 'fail'){
-            res.status(400).json(postLogsResponse);
-        }
+        const postLogsResponse = await postLogsSQL(req.params.uid, req.params.sid, req.body.completed, req.body.timestamp);
 
         res.status(200).json({
-            'status': 'success',
+            'success': true,
+            'status': 200,
             'message': postLogsResponse
         })
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            'status': 'fail',
-            'message': error.message,
-        });
+        next(error);
     }
 })
 
-exports.getLogs = asyncHandler(async (req, res) => {
+exports.getLogs = asyncHandler(async (req, res, next) => {
     try {
         const getLogsResponse = await getLogsSQL(req.params.uid);
 
-        if (getLogsResponse.status === 'fail'){
-            res.status(400).json(getLogsResponse);
-        }
-
         res.status(200).json({
-            'status': 'success',
-            'message': 'berhasil get logs',
+            'success': true,
+            'status': 200,
+            'message': 'Successfully get logs.',
             'data': getLogsResponse
         })
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            'status': 'fail',
-            'message': error.message,
-        });
+        next(error);
     }
 })

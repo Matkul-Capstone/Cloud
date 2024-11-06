@@ -6,6 +6,8 @@ async function registerUserSQL(uid, email, username){
         await db.query(sqlQuery, [uid, username, email]);
         return 'success';
     } catch (error) {
+        error.statusCode = 400;
+        error.message = 'Failed to register user in SQL.';
         throw error;
     }
 };

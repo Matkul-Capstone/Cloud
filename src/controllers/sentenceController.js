@@ -3,19 +3,11 @@ const getCompletedSentencesSQL = require('../services/getCompletedSentences');
 const getSentencesByTypeSQL = require('../services/getSentencesByType');
 const getSentenceSQL = require('../services/getSentence');
 
-exports.getSentenceByUser = asyncHandler(async (req, res) => {
+exports.getSentencesByUser = asyncHandler(async (req, res, next) => {
     try {
         const completedSentences = await getCompletedSentencesSQL(req.params.uid, req.params.type);
-        
-        if(completedSentences.status === 'fail'){
-            res.status(400).json(completedSentences);
-        }
 
         const sentences = await getSentencesByTypeSQL(req.params.type);
-
-        if(sentences.status === 'fail'){
-            res.status(400).json(sentences);
-        }
 
         const results = [];
         sentences.forEach(item => {
@@ -25,30 +17,24 @@ exports.getSentenceByUser = asyncHandler(async (req, res) => {
         });
 
         res.status(200).json({
-            'status': 'success',
-            'message': 'berhasil get sentences',
+            'success': true,
+            'status': 200,
+            'message': 'Successfully get sentences.',
             'data': results
         });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            'status': 'fail',
-            'message': error.message,
-        });
+        next(error);
     }
 })
 
-exports.getSentenceDetail = asyncHandler(async (req, res) => {
+exports.getSentenceDetail = asyncHandler(async (req, res, next) => {
     try {
         const sentenceData = await getSentenceSQL(req.params.sid);
 
-        if(sentenceData.status === 'fail'){
-            res.status(400).json(sentenceData);
-        }
-
         res.status(200).json({
-            'status': 'success',
-            'message': 'berhasil get sentence detail',
+            'success': true,
+            'status': 200,
+            'message': 'Successfully get sentence detail.',
             'data': {
                 'sentence_id': sentenceData.sentence_id,
                 'sentence_type': sentenceData.sentence_type,
@@ -57,10 +43,6 @@ exports.getSentenceDetail = asyncHandler(async (req, res) => {
             }
         });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            'status': 'fail',
-            'message': error.message,
-        });
+        next(error)
     }
 })

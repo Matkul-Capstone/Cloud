@@ -105,7 +105,7 @@ exports.changeUserType = asyncHandler(async (req, res, next) => {
             'message': 'Successfully changed user type.',
             'data': {
                 'uid': req.params.uid,
-                // 'userType': changeUserTypeResponse.userType
+                'userType': changeUserTypeResponse.userType
             }
         });
     } catch (error) {

@@ -11,6 +11,7 @@ ALTER TABLE `user`
 CREATE TABLE `sentences` (
   `sentence_id` int NOT NULL,
   `sentence_type` varchar(255) NOT NULL,
+  `chapter` varchar(255) NOT NULL,
   `sentence` varchar(255) NOT NULL
 )
 

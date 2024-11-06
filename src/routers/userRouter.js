@@ -1,12 +1,13 @@
 const express = require('express');
+const checkRequiredFields = require('../middleware/checkRequiredFields');
 const userController = require('../controllers/userController');
 const userRoute = express.Router();
 
 userRoute.get(('/:uid'), userController.getUser);
-userRoute.post(('/register'), userController.registerUser);
-userRoute.post(('/login'), userController.loginUser);
-userRoute.put(('/:uid/username'), userController.changeUsername);
-userRoute.put(('/:uid/password'), userController.resetPassword);
-userRoute.put(('/:uid/type'), userController.changeUserType);
+userRoute.post(('/register'), checkRequiredFields('email', 'password'), userController.registerUser);
+userRoute.post(('/login'), checkRequiredFields('email', 'password'), userController.loginUser);
+userRoute.put(('/:uid/username'), checkRequiredFields('email'), userController.changeUsername);
+userRoute.put(('/:uid/password'), checkRequiredFields('newUsername'), userController.resetPassword);
+userRoute.put(('/:uid/type'), checkRequiredFields('userType'), userController.changeUserType);
 
 module.exports = userRoute;
