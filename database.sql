@@ -25,8 +25,9 @@ CREATE TABLE `complition_logs` (
   `log_id` int NOT NULL,
   `user_id` varchar(255) DEFAULT NULL,
   `sentence_id` int DEFAULT NULL,
+  `score` int DEFAULT NULL,
   `completed` boolean NOT NULL DEFAULT FALSE,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `timestamp` timestamp DEFAULT NULL
 )
 
 ALTER TABLE `complition_logs`

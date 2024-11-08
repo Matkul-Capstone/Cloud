@@ -4,6 +4,6 @@ const logController = require('../controllers/logController');
 const logRoute = express.Router();
 
 logRoute.get(('/:uid'), logController.getLogs);
-logRoute.post(('/:uid/:sid'), checkRequiredFields('completed', 'timestamp'), logController.postLogs);
+logRoute.post(('/:uid/:sid'), checkRequiredFields('score', 'completed', 'timestamp'), logController.postLogs);
 
 module.exports = logRoute;
