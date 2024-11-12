@@ -12,7 +12,7 @@ Welcome to the **Project Name** API documentation. This document provides detail
     - [Change Username](#change-username)
     - [Reset Password](#reset-password)
     - [Change User Type](#change-user-type)
-  - [Logs Endpoints](#logs-endpoint)
+  - [Log Endpoints](#log-endpoint)
     - [Get Logs](#get-logs)
     - [Post Log](#post-log)
   - [Sentence Endpoints](#sentence-endpoints)
