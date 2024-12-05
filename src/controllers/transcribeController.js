@@ -21,7 +21,7 @@ exports.postTranscribe = asyncHandler(async (req, res, next) => {
             completed = true;
         }
 
-        const postLogResponse = await postLogs(req.body.uid, req.params.sid, response.data.accuracy, completed, req.body.timestamp)
+        const postLogResponse = await postLogs(req.body.uid, req.body.chapter, req.params.sid, response.data.accuracy, completed, req.body.timestamp)
 
         res.status(200).json({
             'success': true,
@@ -29,13 +29,14 @@ exports.postTranscribe = asyncHandler(async (req, res, next) => {
             'message': 'Successfully transcribed audio file.',
             'data': {
                 'uid': req.body.uid,
+                'chapter': req.body.chapter,
                 'sid': req.params.sid,
                 'timestamp': req.body.timestamp,
                 'sentence': req.body.sentence,
                 'score': response.data.accuracy,
                 'correct_words': response.data.correct_words,
                 'wrong_words': response.data.wrong_words,
-                'completec': completed
+                'completed': completed
             }
         });
     } catch (error) {

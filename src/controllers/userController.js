@@ -54,12 +54,16 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
         const loginFirebase = await loginUserFirebase(req.body.email, req.body.password);
 
         const userData = await getUserSQL(loginFirebase);
+        const userLogs = await getLogsSQL(userData.uid)
 
         res.status(200).json({
             'success': true,
             'status': 200,
             'message': 'Successfully login.',
-            'data': userData
+            'data': {
+                userData,
+                'logs': userLogs
+            }
         });
     } catch (error) {
         next(error);
@@ -82,7 +86,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
 
 exports.changeUsername = asyncHandler(async (req, res, next) => {
     try {
-        const changeUsernameResponse = changeUsernameSQL(req.params.uid, req.body.newUsername);
+        const changeUsernameResponse = await changeUsernameSQL(req.params.uid, req.body.newUsername);
 
         res.status(200).json({
             'success': true,
