@@ -66,7 +66,7 @@ npm start
 ## API Endpoints
 API link:
 ```
-otw
+https://speaktoo-api-358856456862.asia-southeast1.run.app
 ```
 
 ### User Enpoints

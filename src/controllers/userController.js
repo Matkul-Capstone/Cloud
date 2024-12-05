@@ -19,7 +19,10 @@ exports.getUser = asyncHandler(async (req, res, next) => {
                 'user_id': getUserResponse.user_id,
                 'username': getUserResponse.username,
                 'user_email': getUserResponse.user_email,
-                'user_type': getUserResponse.user_type
+                'user_type': getUserResponse.user_type,
+                'beginner_score': getUserResponse.beginner_score,
+                'intermediate_score': getUserResponse.intermediate_score,
+                'advance_score': getUserResponse.advance_score
             }
         });
     } catch (error) {
@@ -50,13 +53,13 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
     try {
         const loginFirebase = await loginUserFirebase(req.body.email, req.body.password);
 
+        const userData = await getUserSQL(loginFirebase);
+
         res.status(200).json({
             'success': true,
             'status': 200,
             'message': 'Successfully login.',
-            'data': {
-                'uid': loginFirebase
-            }
+            'data': userData
         });
     } catch (error) {
         next(error);

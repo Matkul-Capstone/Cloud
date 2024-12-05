@@ -34,7 +34,8 @@ exports.postTranscribe = asyncHandler(async (req, res, next) => {
                 'sentence': req.body.sentence,
                 'score': response.data.accuracy,
                 'correct_words': response.data.correct_words,
-                'wrong_words': response.data.wrong_words
+                'wrong_words': response.data.wrong_words,
+                'completec': completed
             }
         });
     } catch (error) {
