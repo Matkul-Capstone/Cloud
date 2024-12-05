@@ -4,7 +4,7 @@ const storage = Multer.memoryStorage();
 const upload = Multer({ 
     storage: storage,
     fileFilter: (req, file, cb) => {
-        if(file.mimetype !== 'audio/wave'){
+        if(file.mimetype !== 'audio/wav'){
             const error = new Error('Invalid mime type.');
             error.statusCode = 400; 
             cb(error);
