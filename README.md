@@ -74,7 +74,7 @@ API link:
 https://speaktoo-api-358856456862.asia-southeast1.run.app
 ```
 
-### User Enpoints
+### User Endpoints
 
 #### Get User
 - URL: /users/:uid
