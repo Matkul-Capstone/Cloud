@@ -2,7 +2,10 @@ CREATE TABLE `user` (
   `user_id` varchar(225) NOT NULL,
   `username` varchar(225) NOT NULL,
   `user_email` varchar(255) NOT NULL,
-  `user_type` varchar(255) DEFAULT NULL
+  `user_type` varchar(255) DEFAULT NULL,
+  `beginner_score` int DEFAULT 0,
+  `intermediate_score` int DEFAULT 0,
+  `advance_score` int DEFAULT 0,
 )
 
 ALTER TABLE `user`
@@ -27,7 +30,8 @@ CREATE TABLE `complition_logs` (
   `sentence_id` int DEFAULT NULL,
   `score` int DEFAULT NULL,
   `completed` boolean NOT NULL DEFAULT FALSE,
-  `timestamp` timestamp DEFAULT NULL
+  `timestamp` varchar(255) DEFAULT NULL,
+  `chapter` varchar(255) DEFAULT NULL
 )
 
 ALTER TABLE `complition_logs`
