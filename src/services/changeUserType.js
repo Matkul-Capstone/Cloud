@@ -2,7 +2,7 @@ const db = require('../config/sqlConfig');
 
 async function changeUserTypeSQL(uid, userType){
     try {
-        const sqlQuery = 'UPDATE user SET user_type = ? WHERE user_id = ?'
+        const sqlQuery = 'UPDATE user SET user_type = ? WHERE user_id = ?';
         const result = await db.query(sqlQuery, [userType, uid]);
 
         if (result[0].affectedRows === 0){

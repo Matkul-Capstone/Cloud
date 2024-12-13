@@ -4,7 +4,7 @@ const getLogsSQL = require('../services/getLogs');
 
 exports.postLogs = asyncHandler(async (req, res, next) => {
     try {
-        const postLogsResponse = await postLogsSQL(req.params.uid, req.params.sid, req.body.score, req.body.completed, req.body.timestamp);
+        const postLogsResponse = await postLogsSQL(req.params.uid, req.body.chapter, req.params.sid, req.body.score, req.body.completed, req.body.timestamp);
 
         res.status(200).json({
             'success': true,

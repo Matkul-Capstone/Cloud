@@ -1,23 +1,25 @@
 # API Documentation
 
-Welcome to the **Project Name** API documentation. This document provides details about each available endpoint, request/response formats, and usage examples.
+Welcome to the **Speaktoo Project** API documentation. This document provides details about each available endpoint, request/response formats, and usage examples.
 
 ## Table of Contents
 - [Getting Started](#getting-started)
 - [API Endpoints](#api-endpoints)
-  - [User Endpoints](#user-endpoints)
-    - [Get User](#get-user)
-    - [Regsiter User](#register-user)
-    - [Login User](#login-user)
-    - [Change Username](#change-username)
-    - [Reset Password](#reset-password)
-    - [Change User Type](#change-user-type)
-  - [Log Endpoints](#log-endpoint)
-    - [Get Logs](#get-logs)
-    - [Post Log](#post-log)
-  - [Sentence Endpoints](#sentence-endpoints)
-    - [Get Sentences By User](#get-sentence-by-user)
-    - [Get Sentence Detail](#get-sentence-detail)
+    - [User Endpoints](#user-endpoints)
+        - [Get User](#get-user)
+        - [Regsiter User](#register-user)
+        - [Login User](#login-user)
+        - [Change Username](#change-username)
+        - [Reset Password](#reset-password)
+        - [Change User Type](#change-user-type)
+    - [Log Endpoints](#log-endpoints)
+        - [Get Logs](#get-logs)
+        - [Post Log](#post-log)
+    - [Sentence Endpoints](#sentence-endpoints)
+        - [Get Sentences By User](#get-sentence-by-user)
+        - [Get Sentence Detail](#get-sentence-detail)
+    - [Transcribe Endpoint](#transcribe-endpoint)
+        - [Post Transcribe](#post-transcribe)
 - [Error Handling](#error-handling)
 
 ---
@@ -25,7 +27,7 @@ Welcome to the **Project Name** API documentation. This document provides detail
 ## Getting Started
 
 ### Prerequisites
-- **Node.js** (vX.X.X)
+- **Node.js**
 - **Database** (MySQL, Firebase Auth)
 
 ### Installation
@@ -56,7 +58,10 @@ APP_ID=
 
 HOST=
 USER=
+PASS=
 DATABASE=
+
+ML_URL=
 ```
 5. Start the server:
 ```
@@ -215,6 +220,29 @@ https://speaktoo-api-358856456862.asia-southeast1.run.app
 }
 ```
 
+#### Change User Score
+- URL: /:uid/score/:type
+
+- Method: PUT
+
+- Description: Change user score in user data.
+
+- Parameters:
+    - uid : User ID
+    - type : User Type
+
+- Body:
+```
+'score' : Int
+```
+
+- Response:
+```
+'success': true,
+'status': 200,
+'message': 'Successfully changed user score.'
+```
+
 ### Log Endpoints
 
 #### Get Logs
@@ -262,6 +290,13 @@ https://speaktoo-api-358856456862.asia-southeast1.run.app
 - Parameters:
     - uid : User ID
     - sid : Sentence ID
+
+- Body:
+```
+'score': Int,
+'completed': Int,
+'timestamp': String
+```
 
 - Response:
 ```
@@ -326,6 +361,45 @@ https://speaktoo-api-358856456862.asia-southeast1.run.app
     "sentence_type": String,
     "sentence": String,
     "audio": String
+}
+```
+
+### Transcribe Endpoint
+
+#### Post Transcribe
+- URL: /transcribe/:sid
+
+- Method: GET
+
+- Description: Retrieves sentence details from database.
+
+- Parameters:
+    - sid : Sentence ID
+
+- Body:
+```
+'uid': String,
+'chapter': String,
+'sentence': String,
+'timestamp': String,
+'audio': WAV File
+```
+
+- Response:
+```
+'success': true,
+'status': 200,
+'message': 'Successfully transcribed audio file.',
+'data': {
+    'uid': String,
+    'chapter': String,
+    'sid': Int,
+    'timestamp': String,
+    'sentence': String,
+    'score': Int,
+    'correct_words': List<String>,
+    'wrong_words': List<String>,
+    'completed': Int
 }
 ```
 

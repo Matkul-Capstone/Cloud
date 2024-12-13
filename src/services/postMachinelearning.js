@@ -20,7 +20,7 @@ async function postMachineLearning(sentence, audio_file){
 }
 
 function formatSentence(sentence) {
-    return input.replace(/[.,?!]/g, '');
+    return sentence.replace(/[.,?!]/g, '');
 }
 
 module.exports = postMachineLearning;

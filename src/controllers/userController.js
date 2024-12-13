@@ -3,9 +3,11 @@ const getUserSQL = require('../services/getUser');
 const registerUserFirebase = require('../services/registerFirebase');
 const registerUserSQL = require('../services/registerSQL');
 const loginUserFirebase = require('../services/loginFirebase');
+const getLogsSQL = require('../services/getLogs');
 const resetPasswordUser = require('../services/resetPassword');
 const changeUsernameSQL = require('../services/changeUsername');
 const changeUserTypeSQL = require('../services/changeUserType');
+const changeUserScoreSQL = require('../services/changeUserScore');
 
 exports.getUser = asyncHandler(async (req, res, next) => {
     try {
@@ -54,14 +56,20 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
         const loginFirebase = await loginUserFirebase(req.body.email, req.body.password);
 
         const userData = await getUserSQL(loginFirebase);
-        const userLogs = await getLogsSQL(userData.uid)
+        const userLogs = await getLogsSQL(userData.user_id);
 
         res.status(200).json({
             'success': true,
             'status': 200,
             'message': 'Successfully login.',
             'data': {
-                userData,
+                'user_id': userData.user_id,
+                'username': userData.username,
+                'user_email': userData.user_email,
+                'user_type': userData.user_type,
+                'beginner_score': userData.beginner_score,
+                'intermediate_score': userData.intermediate_score,
+                'advance_score': userData.advance_score,
                 'logs': userLogs
             }
         });
@@ -119,3 +127,17 @@ exports.changeUserType = asyncHandler(async (req, res, next) => {
         next(error);
     }
 });
+
+exports.changeUserScore = asyncHandler(async (req, res, next) => {
+    try {
+        const changeUserScoreResponse = await changeUserScoreSQL(req.params.uid, req.params.type, req.body.score);
+        
+        res.status(200).json({
+            'success': true,
+            'status': 200,
+            'message': 'Successfully changed user score.'
+        });
+    } catch (error) {
+        next(error)
+    }
+})

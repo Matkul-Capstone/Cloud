@@ -21,7 +21,7 @@ exports.postTranscribe = asyncHandler(async (req, res, next) => {
             completed = true;
         }
 
-        const postLogResponse = await postLogs(req.body.uid, req.body.chapter, req.params.sid, response.data.accuracy, completed, req.body.timestamp)
+        await postLogs(req.body.uid, req.body.chapter, req.params.sid, response.data.accuracy, completed, req.body.timestamp)
 
         res.status(200).json({
             'success': true,
