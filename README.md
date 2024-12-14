@@ -369,7 +369,7 @@ https://speaktoo-api-358856456862.asia-southeast1.run.app
 #### Post Transcribe
 - URL: /transcribe/:sid
 
-- Method: GET
+- Method: POST
 
 - Description: Retrieves sentence details from database.
 
